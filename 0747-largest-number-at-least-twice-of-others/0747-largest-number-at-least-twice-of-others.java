@@ -1,28 +1,27 @@
 class Solution {
     public int dominantIndex(int[] nums) {
-        int n = nums.length;
+        if (nums.length == 1) return 0; // If only one element, it's always dominant.
 
-        // Edge case: If there's only one element, return its index (0)
-        if (n == 1) {
-            return 0;
-        }
+        int maxIndex = 0;  // Index of the largest number
+        int max = Integer.MIN_VALUE;
+        int secondMax = Integer.MIN_VALUE;
 
-        int maxIndex = 0; // Track the index of the maximum number
-
-        // Find the maximum element and its index
-        for (int i = 1; i < n; i++) {
-            if (nums[i] > nums[maxIndex]) {
-                maxIndex = i;
+        // Find the largest and second-largest numbers
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > max) {
+                secondMax = max; // Update second largest
+                max = nums[i];   // Update largest
+                maxIndex = i;    // Store index of largest
+            } else if (nums[i] > secondMax) {
+                secondMax = nums[i]; // Update second largest if needed
             }
         }
 
-        // Check if the maximum is at least twice as large as all other elements
-        for (int i = 0; i < n; i++) {
-            if (i != maxIndex && nums[maxIndex] < 2 * nums[i]) {
-                return -1; // Condition not satisfied
-            }
+        // Check if the largest number is at least twice the second largest
+        if (max >= secondMax * 2) {
+            return maxIndex;
+        } else {
+            return -1;
         }
-
-        return maxIndex; // Return the index of the dominant element
     }
 }
