@@ -1,6 +1,6 @@
 class Solution {
     public boolean divideArray(int[] nums) {
-        int[] count = new int[501]; // Frequency array for numbers 1 to 500
+        int[] count = new int[501]; 
         
         for (int num : nums) {
             count[num]++;
